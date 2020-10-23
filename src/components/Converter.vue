@@ -1,6 +1,6 @@
 <template>
 <div class="converter-container">
-  <div><h2>US$:</h2><input v-model="moedaA_value" type="text" /></div>
+  <div><h2>US$:</h2><input v-model="moedaA_value" type="number" /></div>
   <h2>R$: {{moedaB_value}}</h2>
   <button v-on:click="converter">Converter</button>
 </div>
@@ -12,7 +12,7 @@
 
     data(){
       return {
-        moedaA_value: "",
+        moedaA_value: 1,
         moedaB_value: 0
       };
     },
@@ -29,6 +29,10 @@
           console.log(cotacao)
         })
       }
+    },
+
+    created(){
+      this.converter();
     }
   }
 </script>
