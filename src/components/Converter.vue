@@ -13,26 +13,31 @@
     data(){
       return {
         moedaA_value: 1,
-        moedaB_value: 0
+        moedaB_value: 0,
+        cotacao: 0,
       };
     },
 
     methods: {
-      converter() {
+      requestCotacao(){
         let url = "https://free.currconv.com/api/v7/convert?q=USD_BRL&compact=ultra&apiKey=590a41dfbd78a12428b8";
 
         fetch(url).then(res => {return res.json()})
         .then(json=>{
-          let cotacao = json["USD_BRL"];
-          this.moedaB_value = (cotacao * parseFloat(this.moedaA_value))
-          .toFixed(2)
-          console.log(cotacao)
+          this.cotacao = json["USD_BRL"];
+          this.converter();
         })
+      },
+
+      converter() {
+          this.moedaB_value = (this.cotacao * parseFloat(this.moedaA_value))
+          .toFixed(2)
+          console.log(this.cotacao)
       }
     },
 
     created(){
-      this.converter();
+      this.requestCotacao();
     }
   }
 </script>
